@@ -5,30 +5,53 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-    public static void loadData()  {
+    Properties properties = new Properties();
+    InputStream input = null;
 
-        File file = new File("C:\\Users\\cmarquez\\Documents\\Mobile_Challenge_Repo\\TestingApplicationMobileChallenge\\src\\test\\resources\\configurations\\config.properties");
+    public void dataFileFromConfigProperties() {
 
-        FileInputStream fileInputStream = null;
+        try {
+            input = new FileInputStream("C:\\Users\\cmarquez\\Documents\\Mobile_Challenge_Repo\\TestingApplicationMobileChallenge\\src\\test\\resources\\configurations\\config.properties");
 
-        try{
-            fileInputStream = new FileInputStream(file);
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
+            properties.load(input);
 
-        Properties properties = new Properties();
-
-        try{
-            properties.load(fileInputStream);
-        }catch (IOException e){
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            {
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
 
     }
 
+    public String getValueByKey(String key) throws IOException {
+        String KEY = properties.getProperty(key);
+        try {
+            input = new FileInputStream("C:\\Users\\cmarquez\\Documents\\Mobile_Challenge_Repo\\TestingApplicationMobileChallenge\\src\\test\\resources\\configurations\\config.properties");
+            properties.load(input);
 
 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            {
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
+        }return KEY;
+    }
 }
 
